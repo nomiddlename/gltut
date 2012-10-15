@@ -4,13 +4,22 @@
 <script src="../webgl-utils.js"></script>
 <script src="../webgl-debug.js"></script>
 <script src="./code.js"></script>
+<style type="text/css">
+#glcanvas {
+  width: 80%;
+  height: 80%;
+}
+</style>
 </head>
 <body>
 <h1>01 Hello Triangle</h1>
 
 <script id="vertexShader" type="x-shader/x-vertex">
+// have to specify this in WebGL SL
 precision mediump float;
 
+//the layout(location=0) stuff isn't supported
+//instead of "in" webgl uses "attribute"
 attribute vec4 position;
 void main(void) {
   gl_Position = position;
@@ -26,10 +35,10 @@ void main(void) {
 }
 </script>
 
-<canvas id="glcanvas" width="640" height="480">
+<canvas id="glcanvas">
     Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
 </canvas>
 <hr>
 <address><a href="https://github.com/nomiddlename">nomiddlename</a></address>
-<!-- hhmts start -->Last modified: Tue Oct 16 07:21:58 EST 2012 <!-- hhmts end -->
+<!-- hhmts start -->Last modified: Tue Oct 16 08:53:08 EST 2012 <!-- hhmts end -->
 </body> </html>

@@ -14,6 +14,7 @@
     canvas = document.getElementById("glcanvas");
     gl = gldebug.makeDebugContext(glu.setupWebGL(canvas)); 
     if (gl) {
+      canvas.addEventListener("resize", reshape);
       init();
       display();
     }
@@ -82,9 +83,12 @@
   }
 
   function initialiseVertexBuffer() {
+    //in the tutorial this is glGenBuffers, but webGL makes things a bit easier
     positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+    //not sure if this is needed in webGL, but still...
+    gl.bindBuffer(gl.ARRAY_BUFFER, null);
   }
   
   function init() {
@@ -93,6 +97,7 @@
   }
 
   function display() {
+    reshape();
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
@@ -103,10 +108,23 @@
     gl.vertexAttribPointer(0, 4, gl.FLOAT, gl.FALSE, 0, 0);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
 
+    //tidying up.
     gl.disableVertexAttribArray(0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, null);
+    gl.useProgram(null);
 
     /* won't need this until we're animating frames */
     //window.requestAnimFrame(display, canvas);
+  }
+
+  function reshape() {
+    if (canvas.clientWidth == canvas.width && canvas.clientHeight == canvas.height) {
+      return;
+    }
+
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;    
+    gl.viewport(0, 0, canvas.clientWidth, canvas.clientHeight);
   }
 
   window.document.addEventListener("DOMContentLoaded", start);
