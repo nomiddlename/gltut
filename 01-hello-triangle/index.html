@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>01 Hello Triangle</title>
+<script src="../webgl-utils.js"></script>
+<script src="../webgl-debug.js"></script>
+<script src="./code.js"></script>
+</head>
+<body>
+<h1>01 Hello Triangle</h1>
+
+<script id="vertexShader" type="x-shader/x-vertex">
+precision mediump float;
+
+attribute vec4 position;
+void main(void) {
+  gl_Position = position;
+}
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+precision mediump float;
+
+vec4 outputColor;
+void main(void) {
+  outputColor = vec4(1.0, 1.0, 1.0, 1.0);
+}
+</script>
+
+<canvas id="glcanvas" width="640" height="480">
+    Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
+</canvas>
+<hr>
+<address><a href="https://github.com/nomiddlename">nomiddlename</a></address>
+<!-- hhmts start -->Last modified: Tue Oct 16 07:21:58 EST 2012 <!-- hhmts end -->
+</body> </html>
