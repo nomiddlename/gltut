@@ -29,9 +29,12 @@ void main(void) {
 <script id="fragmentShader" type="x-shader/x-fragment">
 precision mediump float;
 
-vec4 outputColor;
+//in the original tutorial this variable is defined as
+//"out vec4 outputColor"
+//but webgl requires us to set the special variable
+//"gl_FragColor" instead.
 void main(void) {
-  outputColor = vec4(1.0, 1.0, 1.0, 1.0);
+  gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
 }
 </script>
 
@@ -40,5 +43,5 @@ void main(void) {
 </canvas>
 <hr>
 <address><a href="https://github.com/nomiddlename">nomiddlename</a></address>
-<!-- hhmts start -->Last modified: Tue Oct 16 08:53:08 EST 2012 <!-- hhmts end -->
+<!-- hhmts start -->Last modified: Tue Oct 16 20:35:35 EST 2012 <!-- hhmts end -->
 </body> </html>
