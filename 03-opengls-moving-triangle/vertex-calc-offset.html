@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>03 OpenGL's Moving Triangle - Vertex Calc Offset</title>
+<script src="../webgl-utils.js"></script>
+<script src="../webgl-debug.js"></script>
+<script src="./vertexCalcOffset.js"></script>
+<style type="text/css">
+#glcanvas {
+  width: 500px;
+  height: 500px;
+}
+</style>
+</head>
+
+<body>
+<h1>03 OpenGL's Moving Triangle</h1>
+<h2>Vertex Calc Offset</h2>
+
+<script id="vertexShader" type="x-shader/x-vertex">
+precision mediump float;
+
+attribute vec4 position;
+uniform float loopDuration;
+uniform float time;
+
+void main()
+{
+    float timeScale = 3.14159 * 2.0 / loopDuration;
+    
+    float currTime = mod(time, loopDuration);
+    vec4 totalOffset = vec4(
+        cos(currTime * timeScale) * 0.5,
+        sin(currTime * timeScale) * 0.5,
+        0.0,
+        0.0);
+    
+    gl_Position = position + totalOffset;
+}
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+precision mediump float;
+
+void main()
+{
+  gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+}
+</script>
+
+<canvas id="glcanvas">
+    Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
+</canvas>
+
+<hr>
+<address><a href="https://github.com/nomiddlename">nomiddlename</a></address>
+<!-- hhmts start -->Last modified: Wed Oct 17 19:58:33 EST 2012 <!-- hhmts end -->
+</body> </html>
