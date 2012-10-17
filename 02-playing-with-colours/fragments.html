@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>02 Playing With Colours - Fragment Colours</title>
+<script src="../webgl-utils.js"></script>
+<script src="../webgl-debug.js"></script>
+<script src="./fragments.js"></script>
+<style type="text/css">
+#glcanvas {
+  width: 500px;
+  height: 500px;
+}
+</style>
+</head>
+
+<body>
+<h1>02 Playing With Colours</h1>
+<h2>Fragment Colours</h2>
+
+<script id="vertexShader" type="x-shader/x-vertex">
+precision mediump float;
+
+attribute vec4 position;
+void main(void) {
+  gl_Position = position;
+}
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+precision mediump float;
+
+void main()
+{
+    float lerpValue = gl_FragCoord.y / 500.0;
+    
+    gl_FragColor = mix(vec4(1.0, 1.0, 1.0, 1.0),
+        vec4(0.2, 0.2, 0.2, 1.0), lerpValue);
+}
+</script>
+
+<canvas id="glcanvas">
+    Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
+</canvas>
+
+<hr>
+<address><a href="https://github.com/nomiddlename">nomiddlename</a></address>
+<!-- hhmts start -->Last modified: Tue Oct 16 21:10:47 EST 2012 <!-- hhmts end -->
+</body> </html>
