@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>04 Objects At Rest - Orthographic Cube</title>
+<script src="../webgl-utils.js"></script>
+<script src="../webgl-debug.js"></script>
+<script src="./orthographicCube.js"></script>
+<style type="text/css">
+#glcanvas {
+  width: 500px;
+  height: 500px;
+}
+</style>
+</head>
+
+<body>
+<h1>04 Objects At Rest</h1>
+<h2>Orthographic Cube</h2>
+
+<script id="vertexShader" type="x-shader/x-vertex">
+precision mediump float;
+
+attribute vec4 position;
+attribute vec4 colour;
+uniform vec2 offset;
+
+varying vec4 theColour;
+
+void main()
+{
+  theColour = colour;
+  gl_Position = position + vec4(offset.x, offset.y, 0.0, 0.0);
+}
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+precision mediump float;
+
+varying vec4 theColour;
+
+void main()
+{
+  gl_FragColor = theColour;
+}
+</script>
+
+<canvas id="glcanvas">
+    Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
+</canvas>
+
+<hr>
+<address><a href="https://github.com/nomiddlename">nomiddlename</a></address>
+<!-- hhmts start -->Last modified: Thu Oct 18 08:03:30 EST 2012 <!-- hhmts end -->
+</body> </html>

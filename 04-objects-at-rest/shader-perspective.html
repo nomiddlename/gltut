@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>04 Objects At Rest - Shader Perspective</title>
+<script src="../webgl-utils.js"></script>
+<script src="../webgl-debug.js"></script>
+<script src="./shaderPerspective.js"></script>
+<style type="text/css">
+#glcanvas {
+  width: 500px;
+  height: 500px;
+}
+</style>
+</head>
+
+<body>
+<h1>04 Objects At Rest</h1>
+<h2>Shader Perspective</h2>
+
+<script id="vertexShader" type="x-shader/x-vertex">
+precision mediump float;
+
+attribute vec4 position;
+attribute vec4 colour;
+
+varying vec4 theColour;
+
+uniform vec2 offset;
+uniform float zNear;
+uniform float zFar;
+uniform float frustumScale;
+
+void main()
+{
+    vec4 cameraPos = position + vec4(offset.x, offset.y, 0.0, 0.0);
+    vec4 clipPos;
+    
+    clipPos.xy = cameraPos.xy * frustumScale;
+    
+    clipPos.z = cameraPos.z * (zNear + zFar) / (zNear - zFar);
+    clipPos.z += 2.0 * zNear * zFar / (zNear - zFar);
+   
+    clipPos.w = -cameraPos.z;
+    
+    gl_Position = clipPos;
+    theColour = colour;
+}
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+precision mediump float;
+
+varying vec4 theColour;
+
+void main()
+{
+  gl_FragColor = theColour;
+}
+</script>
+
+<canvas id="glcanvas">
+    Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
+</canvas>
+
+<hr>
+<address><a href="https://github.com/nomiddlename">nomiddlename</a></address>
+<!-- hhmts start -->Last modified: Fri Oct 19 08:08:19 EST 2012 <!-- hhmts end -->
+</body> </html>
