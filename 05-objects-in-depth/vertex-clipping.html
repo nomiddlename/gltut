@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>05 Objects in Depth - Vertex Clipping</title>
+<!-- including underscore here, so that I can use _.flatten later -->
+<script src="../underscore-min.js"></script>
+<script src="../webgl-utils.js"></script>
+<script src="../webgl-debug.js"></script>
+<script src="./vertexClipping.js"></script>
+<style type="text/css">
+#glcanvas {
+  width: 100%;
+  height: 100%;
+}
+</style>
+</head>
+
+<body>
+<h1>05 Objects in Depth</h1>
+<h2>Vertex Clipping</h2>
+
+<script id="vertexShader" type="x-shader/x-vertex">
+precision mediump float;
+
+attribute vec4 position;
+attribute vec4 colour;
+
+varying vec4 theColour;
+
+uniform vec3 offset;
+uniform mat4 perspectiveMatrix;
+
+void main()
+{
+    vec4 cameraPos = position + vec4(offset, 0.0);
+   
+    gl_Position = perspectiveMatrix * cameraPos;
+    theColour = colour;
+}
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+precision mediump float;
+
+varying vec4 theColour;
+
+void main()
+{
+  gl_FragColor = theColour;
+}
+</script>
+
+<canvas id="glcanvas">
+    Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
+</canvas>
+
+<hr>
+<address><a href="https://github.com/nomiddlename">nomiddlename</a></address>
+<!-- hhmts start -->Last modified: Thu Oct 25 08:16:59 EST 2012 <!-- hhmts end -->
+</body> </html>
