@@ -142,7 +142,7 @@
 
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.enableVertexAttribArray(position);
-    gl.vertexAttribPointer(position, 4, gl.FLOAT, gl.FALSE, 0, 0);
+    gl.vertexAttribPointer(position, 4, gl.FLOAT, false, 0, 0);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
 
     //tidying up.

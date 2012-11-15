@@ -158,6 +158,18 @@
     return shader;
   }
 
+  /* only works for 4x4 matrix, because I'm too lazy 
+   * to come up with a generic algorithm
+   */
+  function transpose(matrix) {
+    return [
+      matrix[0], matrix[4], matrix[8], matrix[12],
+      matrix[1], matrix[5], matrix[9], matrix[13],
+      matrix[2], matrix[6], matrix[10], matrix[14],
+      matrix[3], matrix[7], matrix[11], matrix[15]
+    ];
+  }
+
   function initialiseProgram() {
     var shaders = [
       getShader('vertexShader'),
@@ -181,15 +193,15 @@
     var frustumScale = 1.0,
     zNear = 0.5,
     zFar = 3.0,
-    perspectiveMatrix = [
+    perspectiveMatrix = transpose([
       frustumScale, 0.0,          0.0,                                   0.0,
       0.0,          frustumScale, 0.0,                                   0.0,
       0.0,          0.0,          (zFar + zNear) / (zNear - zFar),      -1.0,
       0.0,          0.0,          (2.0 * zFar * zNear) / (zNear - zFar), 0.0
-    ];
+    ]);
 
     gl.useProgram(theProgram);
-    gl.uniformMatrix4fv(gl.getUniformLocation(theProgram, "perspectiveMatrix"), gl.TRUE, new Float32Array(perspectiveMatrix));
+    gl.uniformMatrix4fv(gl.getUniformLocation(theProgram, "perspectiveMatrix"), false, new Float32Array(perspectiveMatrix));
     gl.useProgram(null);
 
   }
@@ -229,8 +241,8 @@
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.enableVertexAttribArray(position);
     gl.enableVertexAttribArray(colour);
-    gl.vertexAttribPointer(position, 4, gl.FLOAT, gl.FALSE, 0, 0);
-    gl.vertexAttribPointer(colour, 4, gl.FLOAT, gl.FALSE, 0, 12 * 3 * 4 * 4);
+    gl.vertexAttribPointer(position, 4, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribPointer(colour, 4, gl.FLOAT, false, 0, 12 * 3 * 4 * 4);
     gl.drawArrays(gl.TRIANGLES, 0, 36);
 
     //tidying up.
